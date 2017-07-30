@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##
-# ansi_color <ansi_color_code>
+# color <ansi_color_code>
 # ANSI colors escape code
 # @see: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 #
