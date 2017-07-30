@@ -2,9 +2,10 @@
 
 ##
 # Resolve the root path from a bash script
-# @see: https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within#246128
+# root_path <source>
 # @param SOURCE The bash source directory
 # @example: ROOT_PATH=$( root_path ${BASH_SOURCE[0]} )
+# @see: https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within#246128
 ##
 root_path () {
   local SOURCE=$1 # SOURCE is the 1st argument
