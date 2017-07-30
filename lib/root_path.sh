@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ##
 # Resolve the root path from a bash script
 # @see: https://stackoverflow.com/questions/59895/getting-the-source-directory-of-a-bash-script-from-within#246128
