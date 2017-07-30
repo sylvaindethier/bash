@@ -4,7 +4,11 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR/colors.sh"
 
 ##
-# chalk <STYLE := $NO_COLOR> <STR := ''> 
+# Output styled <message>
+# chalk [<style>] [<message>]
+# 
+# @param <style := $NO_COLOR> The style to apply to the <message>
+# @param <message := ''>      The message
 #
 chalk () {
   local STYLE=${1:-$NO_COLOR}

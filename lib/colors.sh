@@ -1,8 +1,10 @@
 #!/bin/bash
 
 ##
+# Define ANSI color escape code
 # color <ansi_color_code>
-# ANSI colors escape code
+#
+# @param <ainsi_color_code> The ANSI color code
 # @see: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 #
 color () { printf "\033[${1}m"; }

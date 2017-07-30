@@ -4,7 +4,11 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR/chalk.sh"
 
 ##
+# Log a <message> with an appropriate colorized <level> prefix
 # log [<level>] [<message>]
+# 
+# @param <level := ''>    The log level
+# @param <message := ''>  The log message
 #
 log() {
   local LEVEL=${1:-''}
