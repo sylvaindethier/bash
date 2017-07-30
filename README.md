@@ -3,6 +3,7 @@
 # Table of Contents
 * [Getting Started](#getting-started)
     * [Import -- how to use](#import)
+* [Libraries](#libraries)
 * [Frequently asked questions](#faq)
 * [License](#license)
 
@@ -17,6 +18,7 @@ Import single `LIBRARY`:
 ```bash
 source /path/to/bash-utils/lib/${LIBRARY}
 ```
+# Libraries
 
 # FAQ
 
