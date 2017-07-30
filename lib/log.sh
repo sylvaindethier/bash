@@ -1,63 +1,65 @@
 #!/bin/bash
 
-source ./chalk.sh
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "${DIR}/chalk.sh"
 
 ##
-# log_level_color <LEVEL>
-#
-log_level_color () {
-  local LEVEL=${1}
-  local COLOR=${NO_COLOR} # no color by default
-
-  # determine log COLOR from LEVEL
-  case "${LEVEL}" in
-  "DEBUG")
-    COLOR=${LIGHT_CYAN}
-    ;;
-  "WARNING")
-    COLOR=${YELLOW}
-    ;;
-  "ERROR") | "FAILURE")
-    COLOR=${LIGHT_RED}
-    ;;
-  "INFO")
-    COLOR=${LIGHT_BLUE}
-    ;;
-  "SUCCESS")
-    COLOR=${LIGHT_GREEN}
-  # default to "STRONG"
-  "STRONG") | *)
-    COLOR=${WHITE}
-    ;;
-  esac
-  echo $COLOR
-}
-
-##
-# log <LEVEL> <STR>
+# log [<level>] [<message>]
 #
 log() {
-  local LEVEL=$1
-  local STR=$2
+  local LEVEL=${1:-''}
+  local MESSAGE=${2:-''}
 
-  # computed values
-  # define COLOR upon LEVEL value
-  local COLOR=$( log_level_color ${LEVEL} )
+  local LEVEL_NAME='' # no level name by default
+  local LEVEL_COLOR=${NO_COLOR} # no level color by default
 
-  # PREFIX w/ chalked "[<LEVEL>]" by default
-  local PREFIX="[$( chalk ${COLOR} ${LEVEL}  )] "
-  if [ "${LEVEL}" == "STRONG" ]; then
-    # PREFIX w/ the COLOR only for STRONG level
+  # determine level NAME & COLOR from LEVEL
+  case "${LEVEL}" in
+  "--debug" | "-d")
+    LEVEL_NAME="DEBUG"
+    LEVEL_COLOR=${LIGHT_CYAN}
+    ;;
+  "--warning" | "--warn" | "-w")
+    LEVEL_NAME="WARN"
+    LEVEL_COLOR=${YELLOW}
+    ;;
+  "--error" | "-e")
+    LEVEL_NAME="ERROR"
+    LEVEL_COLOR=${LIGHT_RED}
+    ;;
+  "--failure" | "--fail" | "-f")
+    LEVEL_NAME="FAIL"
+    LEVEL_COLOR=${LIGHT_RED}
+    ;;
+  "--info" | "-i")
+    LEVEL_NAME="INFO"
+    LEVEL_COLOR=${LIGHT_BLUE}
+    ;;
+  "--success" | "-s")
+    LEVEL_NAME="SUCCESS"
+    LEVEL_COLOR=${LIGHT_GREEN}
+    ;;
+  "--strong" | "--bold" | "-b")
+    # no LEVEL_NAME
+    LEVEL_COLOR=${WHITE}
+    ;;
+  esac
+
+  # define PREFIX w/ chalked "[<LEVEL_NAME>]" by default
+  local PREFIX="[$( chalk ${LEVEL_COLOR} ${LEVEL_NAME}  )] "
+  if [ "${LEVEL_NAME}" == '' ]; then
+    # define PREFIX w/ the COLOR only if no <LEVEL_NAME>
     PREFIX="${COLOR}"
   fi
-  local SUFFIX="\n${NO_COLOR}" # reset color w/ break line
-  printf "${PREFIX}${STR}${SUFFIX}"
+
+  local SUFFIX="${NO_COLOR}\n" # reset color w/ break line
+  printf "${PREFIX}${MESSAGE}${SUFFIX}"
 }
 
-# log_error () { log 'ERROR' ${LIGHT_RED} "$1"; }
-# # print_error () { log_error "$1"; }
-# log_error "testing\nerror ${LIGHT_BLUE}foo"
-# echo "bar{}"
+log_error () { log --error "$1"; }
+print_error () { log_error "$1"; }
+log_error "testing\nerror ${LIGHT_BLUE}foo"
+echo "bar{}"
 
 # print_success () {
 #   printf "[${LIGHT_GREEN}SUCCESS${NC}] $1\n"
