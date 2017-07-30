@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-source "${DIR}/colors.sh"
+source "$DIR/colors.sh"
 
 ##
 # chalk <STYLE := $NO_COLOR> <STR := ''> 
