@@ -19,31 +19,31 @@ log() {
 
   # determine level NAME & COLOR from LEVEL
   case "${LEVEL}" in
-  "--debug" | "-d")
+  "--debug")
     LEVEL_NAME="DEBUG"
     LEVEL_COLOR=${LIGHT_CYAN}
     ;;
-  "--warning" | "--warn" | "-w")
+  "--warn" | "--warning")
     LEVEL_NAME="WARN"
     LEVEL_COLOR=${YELLOW}
     ;;
-  "--error" | "-e")
+  "--error")
     LEVEL_NAME="ERROR"
     LEVEL_COLOR=${LIGHT_RED}
     ;;
-  "--failure" | "--fail" | "-f")
+  "--fail" | "--failure")
     LEVEL_NAME="FAIL"
     LEVEL_COLOR=${LIGHT_RED}
     ;;
-  "--info" | "-i")
+  "--info")
     LEVEL_NAME="INFO"
     LEVEL_COLOR=${LIGHT_BLUE}
     ;;
-  "--success" | "-s")
+  "--success")
     LEVEL_NAME="SUCCESS"
     LEVEL_COLOR=${LIGHT_GREEN}
     ;;
-  "--strong" | "--bold" | "-b")
+  "--strong" | "--bold")
     # no LEVEL_NAME
     LEVEL_COLOR=${WHITE}
     ;;
@@ -51,28 +51,28 @@ log() {
 
   # define PREFIX w/ chalked "[<LEVEL_NAME>]" by default
   local PREFIX="[$( chalk ${LEVEL_COLOR} ${LEVEL_NAME}  )] "
-  if [ "${LEVEL_NAME}" == '' ]; then
+  if [ -z $LEVEL_NAME ]; then
     # define PREFIX w/ the COLOR only if no <LEVEL_NAME>
-    PREFIX="${COLOR}"
+    PREFIX="${LEVEL_COLOR}"
   fi
 
   local SUFFIX="${NO_COLOR}\n" # reset color w/ break line
   printf "${PREFIX}${MESSAGE}${SUFFIX}"
 }
 
-log_error () { log --error "$1"; }
-print_error () { log_error "$1"; }
-log_error "testing\nerror ${LIGHT_BLUE}foo"
-echo "bar{}"
+log.debug   () { log --debug "$1"; }
 
-# print_success () {
-#   printf "[${LIGHT_GREEN}SUCCESS${NC}] $1\n"
-# }
+log.warn    () { log --warn "$1"; }
+log.warning () { log --warning "$1"; }
 
-# print_info () {
-#   printf "[${LIGHT_BLUE}INFO${NC}] $1\n"
-# }
+log.error   () { log --error "$1"; }
 
-# print_warn () {
-#   printf "[${YELLOW}WARNING${NC}] $1\n"
-# }
+log.fail    () { log --fail "$1"; }
+log.failure () { log --failure "$1"; }
+
+log.info    () { log --info "$1"; }
+
+log.success () { log --success "$1"; }
+
+log.strong  () { log --strong "$1"; }
+log.bold    () { log --bold "$1"; }
