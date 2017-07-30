@@ -7,7 +7,7 @@ source ./colors.sh
 #
 chalk () {
   local STYLE=${1:-$NO_COLOR}
-  local STR=$2
+  local STR=${2:-''}
   printf "${STYLE}${STR}${NO_COLOR}"
 }
 
